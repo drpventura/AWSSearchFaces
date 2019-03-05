@@ -2,9 +2,9 @@ import boto3
 from pathlib import Path
 from pprint import pprint
 from image_helpers import get_image
+from typing import List
 
-
-def delete_collection(coll_name):
+def delete_collection(coll_name:str):
     """
     Attempts to delete the specified collection.
     Raises an error if the collection does not exist.
@@ -23,7 +23,7 @@ def delete_collection(coll_name):
         raise e.response['Error']['Code']
 
 
-def list_collections():
+def list_collections() -> List[str]:
     """
     Returns a list of the names of the existing collections
     :return: a list of the names of the existing collections
@@ -49,7 +49,7 @@ def list_collections():
     return result
 
 
-def collection_exists(coll_name):
+def collection_exists(coll_name:str) -> bool:
     """
     Checks to see if the collection exists
     :param coll_name: the name of the collection to check
@@ -58,7 +58,7 @@ def collection_exists(coll_name):
     return coll_name in list_collections()
 
 
-def create_collection(coll_name):
+def create_collection(coll_name:str):
     """
     Creates a collection with the specified name, if it does not already exist
     :param coll_name: the name of the collection to create
@@ -75,7 +75,7 @@ def create_collection(coll_name):
                   + ', status code: ' + str(response['StatusCode'])
 
 
-def list_faces(coll_name):
+def list_faces(coll_name:str) -> List[dict]:
     """
     Return a list of faces in the specified collection.
     :param coll_name: the collection.
@@ -105,7 +105,7 @@ def list_faces(coll_name):
     return result
 
 
-def add_face(coll_name, image):
+def add_face(coll_name:str, image:str):
     """
     Adds the specified face image to the specified collection.
     :param coll_name: the collection to add the face to
@@ -117,7 +117,7 @@ def add_face(coll_name, image):
     # last access 3/5/2019
 
     # nested function
-    def extract_filename(fname_or_url):
+    def extract_filename(fname_or_url:str) -> str:
         """
         Returns the last component of file path or URL.
         :param fname_or_url: the filename or url.
@@ -136,7 +136,7 @@ def add_face(coll_name, image):
         raise Exception('No face found in the image')
 
 
-def find_face_id(coll_name, ext_img_id):
+def find_face_id(coll_name:str, ext_img_id:str) -> str:
     """
     Find the face_id for the specified image in the collection.
     :param coll_name: the name of the collection.
@@ -149,16 +149,28 @@ def find_face_id(coll_name, ext_img_id):
     else:
         return None
 
-def delete_face(coll_name, face_ids):
+
+def delete_face(coll_name: str, face_ids:List[str]):
     """
     Deletes the specified faces from the collection.
     :param coll_name: the name of the collection
     :param face_ids: a list of face ids (see FaceId) field in collection
     """
-    pass
+    # lightly edited version of
+    # https://docs.aws.amazon.com/rekognition/latest/dg/delete-faces-procedure.html
+    # last access 3/5/2019
+
+    client = boto3.client('rekognition')
+
+    response = client.delete_faces(CollectionId=coll_name,
+                                   FaceIds=face_ids)
+
+    print(str(len(response['DeletedFaces'])) + ' faces deleted:')
+    for faceId in response['DeletedFaces']:
+        print(faceId)
 
 
-def find_face(coll_name, face_to_find):
+def find_face(coll_name:str, face_to_find:str) -> List[dict]:
     """
     Searches for the specified face in the collection.
     :param face_to_find: a string that is either the filename or URL to the image containing the face to search for.
@@ -170,9 +182,10 @@ def find_face(coll_name, face_to_find):
     client = boto3.client('rekognition')
 
     rekresp = client.search_faces_by_image(CollectionId=coll_name,
-                                            Image={'Bytes': get_image(face_to_find)})
+                                           Image={'Bytes': get_image(face_to_find)})
 
     return rekresp['FaceMatches']
+
 
 delete_collection('Faces')
 create_collection('Faces')
