@@ -53,7 +53,7 @@ def collection_exists(coll_name):
     :param coll_name: the name of the collection to check
     :return: true iff the collection already exists
     """
-    return coll_name in list_collection()
+    return coll_name in list_collections()
 
 
 def create_collection(coll_name):
