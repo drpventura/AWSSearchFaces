@@ -1,4 +1,6 @@
 import boto3
+from image_helpers import get_image
+
 from pprint import pprint
 
 
