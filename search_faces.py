@@ -21,15 +21,15 @@ def delete_collection(coll_name):
         raise e.response['Error']['Code']
 
 
-def list_collection():
+def list_collections():
     """
     Returns a list of the names of the existing collections
     :return: a list of the names of the existing collections
     """
-
     # lightly edited version of
     # https://docs.aws.amazon.com/rekognition/latest/dg/list-collection-procedure.html,
     # last access 3/5/2019
+
     client = boto3.client('rekognition')
     response = client.list_collections()
     result = []
@@ -56,9 +56,9 @@ def collection_exists(coll_name):
     return coll_name in list_collection()
 
 
-def create_collection_if_not_exists(coll_name):
+def create_collection(coll_name):
     """
-    Creates a collection with the specified name,if it does not already exist
+    Creates a collection with the specified name, if it does not already exist
     :param coll_name: the name of the collection to create
     """
     # lightly edited version of
@@ -72,3 +72,4 @@ def create_collection_if_not_exists(coll_name):
         if response['StatusCode'] != 200:
             raise 'Could not create collection, ' + coll_name \
                   + ', status code: ' + str(response['StatusCode'])
+
