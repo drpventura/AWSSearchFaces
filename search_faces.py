@@ -185,20 +185,21 @@ def find_face(coll_name: str, face_to_find: str) -> List[dict]:
     return rekresp['FaceMatches']
 
 
-delete_collection('Faces')
-create_collection('Faces')
+if __name__ == '__main__':
+    delete_collection('Faces')
+    create_collection('Faces')
 
-images_dir = Path('images')
-images = [str(images_dir / fname) for fname in ['portrait.jpg', 'old.jpg']]
-# images = [str(images_dir / fname) for fname in ['portrait.jpg']]
+    images_dir = Path('images')
+    images = [str(images_dir / fname) for fname in ['portrait.jpg', 'old.jpg']]
+    # images = [str(images_dir / fname) for fname in ['portrait.jpg']]
 
-for image in images:
-    add_face('Faces', image)
-pprint(list_faces('Faces'))
+    for image in images:
+        add_face('Faces', image)
+    pprint(list_faces('Faces'))
 
-# pprint(find_face('Faces', 'https://m.media-amazon.com/images/M/MV5BNDExMzIzNjk3Nl5BMl5BanBnXkFtZTcwOTE4NDU5OA@@._V1_UX214_CR0,0,214,317_AL_.jpg'))
-pprint(find_face('Faces', r'images\tampabay.jpg'))
+    # pprint(find_face('Faces', 'https://m.media-amazon.com/images/M/MV5BNDExMzIzNjk3Nl5BMl5BanBnXkFtZTcwOTE4NDU5OA@@._V1_UX214_CR0,0,214,317_AL_.jpg'))
+    pprint(find_face('Faces', r'images\tampabay.jpg'))
 
-face_ids = [face['FaceId'] for face in list_faces('Faces')]
-pprint(face_ids)
-delete_face('Faces', face_ids)
+    face_ids = [face['FaceId'] for face in list_faces('Faces')]
+    pprint(face_ids)
+    delete_face('Faces', face_ids)
