@@ -1,0 +1,7 @@
+# Hack to have an empty directory in a Git repo
+# as the images in the demo are not being distributed
+
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore
