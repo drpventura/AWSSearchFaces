@@ -89,12 +89,10 @@ print('Searching collection for', img_fname)
 
 # gu.create_pillow_img(img_fname).show()
 # try to find the face in the collection
-face_info = fcol.find_face(COLLECT_NAME,
-                           img_fname)
+faces_info = fcol.find_face(COLLECT_NAME,
+                            img_fname)
 
-print('Found')
-pprint(face_info)
-# if face_info != []:
-#     face_info = face_info[0]
-#     pprint(face_info)
-#     gu.draw_box(img_fname, face_info['BoundingBox']).show()
+print('Found', len(faces_info),
+      'match' + ('' if len(faces_info) == 1 else 's'))
+# Extract the name of the reference image(s) that were matched
+pprint([face_info['Face']['ExternalImageId'] for face_info in faces_info])
