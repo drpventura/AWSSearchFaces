@@ -1,7 +1,9 @@
 import boto3
 from pathlib import Path
 from pprint import pprint
-from image_helpers import get_image
+# note for my Cloud Computing students,
+# image_loaders.py is the new name for image_helpers.py
+from image_loaders import get_image
 from typing import List
 
 
