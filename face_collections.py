@@ -6,7 +6,6 @@ from pprint import pprint
 from image_loaders import get_image
 from typing import List
 
-
 def delete_collection(coll_name: str):
     """
     Attempts to delete the specified collection.
@@ -193,7 +192,7 @@ if __name__ == '__main__':
 
     images_dir = Path('images')
     images = [str(images_dir / fname) for fname in ['portrait.jpg', 'old.jpg']]
-    # images = [str(images_dir / fname) for fname in ['portrait.jpg']]
+    # images = [str(ref_images_dir / fname) for fname in ['portrait.jpg']]
 
     for image in images:
         add_face('Faces', image)
