@@ -11,3 +11,5 @@ then their reference image is found to match.
 2. Add images to the collection
 3. Search the collection for a matching face
 
+## Explanation of the code
+[![Searching a collection for matching faces in AWS Rekognition](http://i66.tinypic.com/2rhqqmq.png)](https://youtu.be/7rHBYSsCtuI "Searching a collection for matching faces in AWS Rekognition")
