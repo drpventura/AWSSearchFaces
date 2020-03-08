@@ -12,4 +12,4 @@ then their reference image is found to match.
 3. Search the collection for a matching face
 
 ## Explanation of the code
-[![Searching a collection for matching faces in AWS Rekognition](http://i66.tinypic.com/2rhqqmq.png)](https://youtu.be/7rHBYSsCtuI "Video: Searching a collection for matching faces in AWS Rekognition -- Click to watch!")
+[Searching a collection for matching faces in AWS Rekognition](https://www.youtube.com/watch?v=7rHBYSsCtuI)
